@@ -23,12 +23,16 @@ export default function App() {
     ))
   }
 
+  function multipleDelete(ids) {
+    setItems(items => items.filter(item => !ids.includes(item.id)))
+  }
+
   return (
     <div className="w-screen h-screen">
       <Header />
       <Form onAddItems={handleAddItems} />
-      <ItemPackage items={items} onDeleteItems={handleDeleteItems} handleOnChangeItem={handleOnChangeItem} />
-      <Footer itemsLength={items.length} />
+      <ItemPackage items={items} onDeleteItems={handleDeleteItems} handleOnChangeItem={handleOnChangeItem} multipleDelete={multipleDelete} />
+      <Footer items={items} />
     </div>
   )
 }
