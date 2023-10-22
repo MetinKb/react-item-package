@@ -2,7 +2,7 @@ import "Assets/tailwind.css"
 import Footer from "Components/Footer"
 import Header from "Components/Header"
 import Form from "Components/Form"
-import ItemPackage from "Components/Items"
+import ItemPackage from "Components/ItemPackage"
 import { useState } from "react"
 
 export default function App() {
@@ -24,14 +24,23 @@ export default function App() {
   }
 
   function multipleDelete(ids) {
-    setItems(items => items.filter(item => !ids.includes(item.id)))
+    window.confirm("Are you sure you want to delete all the items you selected?") &&
+      setItems(items => items.filter(item => !ids.includes(item.id)))
+  }
+
+  function clearAllItems() {
+    window.confirm("Are you sure you want to delete all items?") && setItems([])
   }
 
   return (
     <div className="w-screen h-screen">
       <Header />
       <Form onAddItems={handleAddItems} />
-      <ItemPackage items={items} onDeleteItems={handleDeleteItems} handleOnChangeItem={handleOnChangeItem} multipleDelete={multipleDelete} />
+      <ItemPackage items={items}
+        onDeleteItems={handleDeleteItems}
+        handleOnChangeItem={handleOnChangeItem}
+        multipleDelete={multipleDelete}
+        clearAllItems={clearAllItems} />
       <Footer items={items} />
     </div>
   )
